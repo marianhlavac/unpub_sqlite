@@ -16,6 +16,7 @@ A package implementing a unpub's `MetaStore` for storing package metadata in a l
 - ❌ Querying packages by uploader
 - ❌ Querying packages by dependency
 - ❌ Any test coverage
+- ❌ Security toughening – exceptions leaking over HTTP responses, etc.
 
 ## Disclaimer
 
