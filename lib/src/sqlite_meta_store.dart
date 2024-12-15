@@ -29,7 +29,8 @@ class SqliteMetaStore extends MetaStore {
         id integer not null primary key,
         package_id integer not null,
         email text not null,
-        foreign key (package_id) references $packagesTableName(id)
+        foreign key (package_id) references $packagesTableName(id),
+        unique (package_id, email)
       );
       create table if not exists $versionsTableName (
         id integer not null primary key,
@@ -94,6 +95,17 @@ class SqliteMetaStore extends MetaStore {
     ''').execute([name]);
 
     final packageId = sqliteDatabase.lastInsertRowId;
+
+    // Upsert uploader for the package
+    if (version.uploader != null) {
+      sqliteDatabase.prepare('''
+        insert
+          into $uploadersTableName 
+        (package_id, email) values (?, ?)
+        on conflict (package_id, email) 
+          do nothing
+      ''').execute([packageId, version.uploader]);
+    }
 
     // Create new version
     sqliteDatabase.prepare('''
