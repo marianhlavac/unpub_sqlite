@@ -183,6 +183,8 @@ class SqliteMetaStore extends MetaStore {
       return dataJson;
     });
 
+    if (versions.isEmpty) return null;
+
     return UnpubPackage(
       packageRow['name'],
       versions.toList(),
