@@ -1,0 +1,11 @@
+name: unpub_sqlite
+description: Implementation of a unpub's `MetaStore` for a SQLite databases
+version: 0.1.0
+repository: https://github.com/marianhlavac/unpub_sqlite
+
+environment:
+  sdk: ^3.5.3
+
+dependencies:
+  unpub: ^2.1.0
+  sqlite3: ^2.5.0
